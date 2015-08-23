@@ -9,7 +9,6 @@ var Monster;
             this.HasStarted = false;
             this.IsFinished = false;
             setTimeout(function () {
-                console.log(_this.Tween);
                 _this.Tween.Play();
                 _this.HasStarted = true;
             }, (delayStart != null ? delayStart.Milliseconds : 0));
@@ -35,7 +34,6 @@ var Monster;
         };
         TweenManager.prototype.Update = function (gameTime) {
             for (var tween in this.ActiveTweens) {
-                console.log(tween);
                 this.ActiveTweens[tween].Update(gameTime);
                 if (this.ActiveTweens[tween].IsFinished)
                     this.ActiveTweens.splice(tween, 1);
@@ -48,3 +46,4 @@ var Monster;
     })();
     Monster.TweenManager = TweenManager;
 })(Monster || (Monster = {}));
+//# sourceMappingURL=TweenManager.js.map

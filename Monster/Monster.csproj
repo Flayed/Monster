@@ -139,6 +139,8 @@
     <Content Include="Content\Img\UpArrowOutline.png" />
     <Content Include="packages.config" />
     <Content Include="Scripts\endgate-0.2.1.min.js.map" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -149,6 +151,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Content\Audio\MonsterTheme.ogg" />
     <Content Include="Content\Audio\MonsterBackstory.ogg" />
+    <Content Include="Scripts\underscore.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -198,6 +201,7 @@
     <TypeScriptCompile Include="Scripts\Monster\Title.ts" />
     <TypeScriptCompile Include="Scripts\Monster\TweenManager.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

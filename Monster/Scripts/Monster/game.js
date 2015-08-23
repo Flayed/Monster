@@ -96,3 +96,4 @@ var Monster;
     })(eg.Game);
     Monster.Game = Game;
 })(Monster || (Monster = {}));
+//# sourceMappingURL=Game.js.map

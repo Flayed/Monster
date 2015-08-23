@@ -10,7 +10,6 @@
             this.HasStarted = false;
             this.IsFinished = false;
             setTimeout(() => {
-                console.log(this.Tween);
                 this.Tween.Play();
                 this.HasStarted = true;
             }, (delayStart != null ? delayStart.Milliseconds : 0));
@@ -36,7 +35,6 @@
 
         public Update(gameTime: eg.GameTime): void {
             for (var tween in this.ActiveTweens) {
-                console.log(tween);
                 this.ActiveTweens[tween].Update(gameTime);
                 if (this.ActiveTweens[tween].IsFinished)
                     this.ActiveTweens.splice(tween, 1);

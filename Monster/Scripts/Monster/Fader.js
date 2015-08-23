@@ -28,3 +28,4 @@ var Monster;
     })();
     Monster.Fader = Fader;
 })(Monster || (Monster = {}));
+//# sourceMappingURL=Fader.js.map

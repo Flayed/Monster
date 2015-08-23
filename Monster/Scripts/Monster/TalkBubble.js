@@ -22,3 +22,4 @@ var Monster;
     })();
     Monster.TalkBubble = TalkBubble;
 })(Monster || (Monster = {}));
+//# sourceMappingURL=TalkBubble.js.map

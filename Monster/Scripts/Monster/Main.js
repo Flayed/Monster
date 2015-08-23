@@ -9,3 +9,4 @@
     holder.append(canvas);
     game = new Monster.Game(canvas);
 })($, window);
+//# sourceMappingURL=Main.js.map

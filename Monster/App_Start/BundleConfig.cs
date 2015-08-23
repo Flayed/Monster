@@ -24,6 +24,7 @@ namespace Monster
 
             bundles.Add(new ScriptBundle("~/bundles/game").Include(
                 "~/Scripts/endgate-{version}.js",
+                "~/Scripts/underscore.js",
                 "~/Scripts/Monster/TweenManager.js",
                 "~/Scripts/Monster/TalkBubble.js",
                 "~/Scripts/Monster/Fader.js",

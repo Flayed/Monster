@@ -69,7 +69,7 @@ var Monster;
                         self.State++;
                         console.log("LOL");
                         var tb = new Monster.TalkBubble(self.Screen, self.GymCoach.Position, "THIS IS A TALK BUBBLE, LOL");
-                        self.DDR = new Monster.ItsBasicallyDanceDanceRevolution(self.Screen, self.Content, null);
+                        self.DDR = new Monster.ItsBasicallyDanceDanceRevolution(self.Screen, self.Content, self.TweenManager, null);
                     }
                     break;
                 case 2:
@@ -93,3 +93,4 @@ var Monster;
     })();
     Monster.GymClass = GymClass;
 })(Monster || (Monster = {}));
+//# sourceMappingURL=GymClass.js.map
