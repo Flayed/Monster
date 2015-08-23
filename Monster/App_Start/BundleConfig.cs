@@ -26,7 +26,7 @@ namespace Monster
                 "~/Scripts/endgate-{version}.js",
                 "~/Scripts/underscore.js",
                 "~/Scripts/Monster/TweenManager.js",
-                "~/Scripts/Monster/TalkBubble.js",
+                "~/Scripts/Monster/TalkBubbleManager.js",
                 "~/Scripts/Monster/Fader.js",
                 "~/Scripts/Monster/ItsBasicallyDanceDanceRevolution.js",
                 "~/Scripts/Monster/Title.js",

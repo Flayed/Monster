@@ -2,11 +2,13 @@
 var Monster;
 (function (Monster) {
     var GymClass = (function () {
-        function GymClass(screen, content, tweenManager) {
+        function GymClass(screen, content, tweenManager, talkBubbleManager, keyboardHandler) {
             var self = this;
             self.Screen = screen;
             self.Content = content;
             self.TweenManager = tweenManager;
+            self.KeyboardHandler = keyboardHandler;
+            self.TalkBubbleManager = talkBubbleManager;
             self.Background = new eg.Graphics.Sprite2d(400, 300, self.Content.GetImage("FreshmanBackground"));
             self.Background.Opacity = 0;
             self.Rope = new eg.Graphics.Sprite2d(400, -400, self.Content.GetImage("TheRope"));
@@ -67,9 +69,8 @@ var Monster;
                 case 1:
                     if (!self.TweenManager.HasTweens()) {
                         self.State++;
-                        console.log("LOL");
-                        var tb = new Monster.TalkBubble(self.Screen, self.GymCoach.Position, "THIS IS A TALK BUBBLE, LOL");
-                        self.DDR = new Monster.ItsBasicallyDanceDanceRevolution(self.Screen, self.Content, self.TweenManager, null);
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "THIS IS A TALK BUBBLE, LOL", 5000);
+                        self.DDR = new Monster.ItsBasicallyDanceDanceRevolution(self.Screen, self.Content, self.TweenManager, self.KeyboardHandler, self.Content.GetAudio("Theme").BuildClip());
                     }
                     break;
                 case 2:
@@ -93,4 +94,3 @@ var Monster;
     })();
     Monster.GymClass = GymClass;
 })(Monster || (Monster = {}));
-//# sourceMappingURL=GymClass.js.map

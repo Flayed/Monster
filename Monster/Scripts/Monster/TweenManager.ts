@@ -13,7 +13,7 @@
                 this.Tween.Play();
                 this.HasStarted = true;
             }, (delayStart != null ? delayStart.Milliseconds : 0));
-        }
+        };
 
         public Update(gameTime: eg.GameTime): void {
             if (!this.HasStarted) return;

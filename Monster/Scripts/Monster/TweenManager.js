@@ -13,6 +13,7 @@ var Monster;
                 _this.HasStarted = true;
             }, (delayStart != null ? delayStart.Milliseconds : 0));
         }
+        ;
         Tween.prototype.Update = function (gameTime) {
             if (!this.HasStarted)
                 return;
@@ -46,4 +47,3 @@ var Monster;
     })();
     Monster.TweenManager = TweenManager;
 })(Monster || (Monster = {}));
-//# sourceMappingURL=TweenManager.js.map

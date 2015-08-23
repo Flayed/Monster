@@ -197,7 +197,7 @@
     <TypeScriptCompile Include="Scripts\Monster\GymClass.ts" />
     <TypeScriptCompile Include="Scripts\Monster\ItsBasicallyDanceDanceRevolution.ts" />
     <TypeScriptCompile Include="Scripts\Monster\Main.ts" />
-    <TypeScriptCompile Include="Scripts\Monster\TalkBubble.ts" />
+    <TypeScriptCompile Include="Scripts\Monster\TalkBubbleManager.ts" />
     <TypeScriptCompile Include="Scripts\Monster\Title.ts" />
     <TypeScriptCompile Include="Scripts\Monster\TweenManager.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />

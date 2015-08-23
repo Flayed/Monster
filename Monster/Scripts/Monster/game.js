@@ -17,13 +17,12 @@ var Monster;
             var self = this;
             self.GameState = 2;
             self.TweenManager = new Monster.TweenManager();
-            //self.characters = new Array<eg.Graphics.Sprite2d>();
-            //self.Scene.Add(new eg.Graphics.Sprite2d(400, 300, new eg.Graphics.ImageSource("./Content/Img/FreshmanBackground.png", 800, 600)));
-            //self.Scene.Add(new eg.Graphics.Sprite2d(400, 250, new eg.Graphics.ImageSource("./Content/Img/TheRope.png", 75, 400)));            
+            self.TalkBubbleManager = new Monster.TalkBubbleManager(self.Scene);
         }
         Game.prototype.Update = function (gameTime) {
             var self = this;
             self.TweenManager.Update(gameTime);
+            self.TalkBubbleManager.Update(gameTime);
             // Move the circle to the right at 200 pixels per second
             switch (self.GameState) {
                 case -1:
@@ -55,7 +54,7 @@ var Monster;
                     break;
                 case 2:
                     if (!self.GymClass) {
-                        self.GymClass = new Monster.GymClass(self.Scene, self.Content, self.TweenManager);
+                        self.GymClass = new Monster.GymClass(self.Scene, self.Content, self.TweenManager, self.TalkBubbleManager, self.Input.Keyboard);
                         self.Input.Mouse.OnClick.Bind(self.GymClass.MouseClick);
                     }
                     self.GymClass.Update(gameTime);
@@ -96,4 +95,3 @@ var Monster;
     })(eg.Game);
     Monster.Game = Game;
 })(Monster || (Monster = {}));
-//# sourceMappingURL=Game.js.map

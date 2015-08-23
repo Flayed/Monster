@@ -12,5 +12,6 @@
     canvas.height = 600;
     holder.append(canvas);
     game = new Monster.Game(canvas);
+    holder.focus();
 
 })($, window);

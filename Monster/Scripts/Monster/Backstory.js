@@ -144,4 +144,3 @@ var Monster;
     })();
     Monster.Backstory = Backstory;
 })(Monster || (Monster = {}));
-//# sourceMappingURL=Backstory.js.map

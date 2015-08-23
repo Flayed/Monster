@@ -16,6 +16,7 @@ var Monster;
             this.Screen.Add(this.Text);
             this.GoTime = Date.now().valueOf();
             this.IsFinished = false;
+            this.State = 0;
         }
         TalkBubble.prototype.Update = function (gameTime) {
             var self = this;
@@ -47,4 +48,27 @@ var Monster;
         return TalkBubble;
     })();
     Monster.TalkBubble = TalkBubble;
+    var TalkBubbleManager = (function () {
+        function TalkBubbleManager(screen) {
+            this.Screen = screen;
+            this.ActiveTalkBubbles = new Array();
+        }
+        TalkBubbleManager.prototype.Add = function (source, message, duration) {
+            this.ActiveTalkBubbles.push(new TalkBubble(this.Screen, source, message, duration));
+        };
+        TalkBubbleManager.prototype.Update = function (gameTime) {
+            for (var talkBubble in this.ActiveTalkBubbles) {
+                this.ActiveTalkBubbles[talkBubble].Update(gameTime);
+                if (this.ActiveTalkBubbles[talkBubble].IsFinished) {
+                    this.ActiveTalkBubbles[talkBubble].Dispose();
+                    this.ActiveTalkBubbles.splice(talkBubble, 1);
+                }
+            }
+        };
+        TalkBubbleManager.prototype.HasActiveTalkBubbles = function () {
+            return this.ActiveTalkBubbles.length > 0;
+        };
+        return TalkBubbleManager;
+    })();
+    Monster.TalkBubbleManager = TalkBubbleManager;
 })(Monster || (Monster = {}));
