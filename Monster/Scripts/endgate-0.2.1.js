@@ -3049,7 +3049,12 @@ var EndGate;
                                 arguments[positionArgOffset + i] += -that._camera.Position[axi] + that._canvasCenter[axi] * scale;
                             }
                         }
-
+                        try {
+                            var rap = replacee.apply(this, arguments);
+                        }
+                        catch (ex) {
+                            return replacee;
+                        }                        
                         return replacee.apply(this, arguments);
                     };
                 };

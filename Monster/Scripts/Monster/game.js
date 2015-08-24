@@ -107,7 +107,7 @@ var Monster;
             this.Content.LoadImage("FreshmanBackground", "./Content/Img/FreshmanBackground.png", 800, 600);
             this.Content.LoadImage("Cheerleader", "./Content/Img/Cheerleader.png", 100, 140);
             this.Content.LoadImage("Chen", "./Content/Img/Chen.png", 75, 140);
-            this.Content.LoadImage("Dawn", "./Content/Img/Dawn.png", 75, 140);
+            this.Content.LoadImage("Dawn", "./Content/Img/Dawn.png", 79, 120);
             this.Content.LoadImage("Dexter", "./Content/Img/Dexter.png", 75, 140);
             this.Content.LoadImage("Elmo", "./Content/Img/Elmo.png", 75, 140);
             this.Content.LoadImage("GymCoach", "./Content/Img/GymCoach.png", 75, 140);
