@@ -32,6 +32,8 @@ namespace Monster
                 "~/Scripts/Monster/Title.js",
                 "~/Scripts/Monster/Backstory.js",
                 "~/Scripts/Monster/GymClass.js",
+                "~/Scripts/Monster/Lunchroom.js",
+                "~/Scripts/Monster/Credits.js",
                 "~/Scripts/Monster/Game.js",
                 "~/Scripts/Monster/Main.js"));
         }

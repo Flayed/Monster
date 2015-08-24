@@ -4,26 +4,35 @@ module Monster {
         private Screen: eg.Rendering.Scene2d;
         private Bubble: eg.Graphics.Rectangle;
         private Text: eg.Graphics.Text2d;
+        private Audio: eg.Sound.AudioClip;
         private State: number;
         private GoTime: number;
         private Duration: number;
         public IsFinished: boolean;
-        constructor(screen: eg.Rendering.Scene2d, source: eg.Vector2d, message: string, duration: number) {
+        constructor(screen: eg.Rendering.Scene2d, source: eg.Vector2d, message: string, audio: eg.Sound.AudioClip, duration: number) {
             this.Screen = screen;
             this.Duration = duration;
-            this.Bubble = new eg.Graphics.Rectangle(source.X, source.Y - 100, message.length * 12, 35, eg.Graphics.Color.WhiteSmoke);
-            this.Bubble.Border(2, eg.Graphics.Color.Black);
-            this.Bubble.Opacity = 0;
+            this.Audio = audio;
+
             this.Text = new eg.Graphics.Text2d(source.X, source.Y - 100, message);
             this.Text.FontSettings.FontFamily = eg.Graphics.Assets.FontFamily.Helvetica;
             this.Text.FontSettings.FontSize = "18px";
             this.Text.Opacity = 0;
+            this.Text.ZIndex = 999;
+
+            
+            this.Bubble = new eg.Graphics.Rectangle(source.X, source.Y - 100, message.length * 10, 35, eg.Graphics.Color.WhiteSmoke);
+            this.Bubble.Border(2, eg.Graphics.Color.Black);
+            this.Bubble.Opacity = 0;
+            this.Bubble.ZIndex = 998;
 
             this.Screen.Add(this.Bubble);
             this.Screen.Add(this.Text);
             this.GoTime = Date.now().valueOf();
             this.IsFinished = false;
             this.State = 0;
+            if (this.Audio)
+                this.Audio.Play();
         }
 
         public Update(gameTime: eg.GameTime): void {
@@ -54,6 +63,10 @@ module Monster {
         }
 
         public Dispose(): void {
+            if (this.Audio) {
+                this.Audio.Stop();
+                this.Audio.Dispose();
+            }
             this.Screen.Remove(this.Text);
             this.Screen.Remove(this.Bubble);
         }
@@ -67,8 +80,8 @@ module Monster {
             this.ActiveTalkBubbles = new Array<Monster.TalkBubble>();
         }
 
-        public Add(source: eg.Vector2d, message: string, duration: number) {
-            this.ActiveTalkBubbles.push(new TalkBubble(this.Screen, source, message, duration));
+        public Add(source: eg.Vector2d, message: string, sound: eg.Sound.AudioClip, duration: number) {
+            this.ActiveTalkBubbles.push(new TalkBubble(this.Screen, source, message, sound, duration));
         }
 
         public Update(gameTime: eg.GameTime): void {

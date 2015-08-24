@@ -92,7 +92,7 @@ module Monster {
         Right = 645
     }
 
-    export class ItsBasicallyDanceDanceRevolution implements eg.IUpdateable, eg.IDisposable {
+    export class ItsBasicallyDanceDanceRevolution implements eg.IUpdateable {
         private Screen: eg.Rendering.Scene2d;
         private Content: eg.Content.ContentManager;
         private TweenManager: Monster.TweenManager;
@@ -119,23 +119,26 @@ module Monster {
         private Ival: any;        
         private State: number;
 
+        public IsFinished: boolean;
+
         public Score: number;
         public Chain: number;
         public LongestChain: number;
         public Multiplier: number;
         public KeyDown: any;
+        public Unload: any;
 
-        constructor(screen: eg.Rendering.Scene2d, content: eg.Content.ContentManager, tweenManager: Monster.TweenManager, keyboardHandler: eg.Input.KeyboardHandler, music: eg.Sound.AudioClip) {
+        constructor(screen: eg.Rendering.Scene2d, content: eg.Content.ContentManager, tweenManager: Monster.TweenManager, keyboardHandler: eg.Input.KeyboardHandler, music: eg.Sound.AudioClip, bpm: number) {
             this.Screen = screen;
             this.Content = content;
             this.TweenManager = tweenManager;
             this.KeyboardHandler = keyboardHandler;
             this.Music = music;
 
-            this.Notes = [411, 1133, 2153, 2608, 3130, 3600, 4145, 5068, 6081, 6552, 7089, 7594, 8123, 9061, 10083, 10564, 11093, 11613, 12112, 13042, 14042, 14548, 15069, 15582, 16092, 17052, 18107, 18574, 19075, 19570, 20071, 21052, 22040, 22513, 23029, 23557, 24082, 25059, 26061, 26563, 27081, 27561, 28089, 29031, 30001, 30516, 31047, 31557, 32063, 33089, 34072, 34565, 35055, 35578, 36094, 37051, 38017, 38535, 39069, 39586, 40100, 41083, 42034, 42550, 43076, 43572, 44090, 45010, 46021, 46536, 47052, 47556, 48067, 49072, 50032, 50568, 51090, 51586, 52114, 53052, 54027, 54542, 55069, 55580];
+            this.Notes = [2737, 3454, 4168, 4835, 5528, 6234, 6918, 7626, 8257, 8991, 9653, 10319, 11074, 11285, 11602, 11921, 12255, 12628, 12978, 13322, 13679, 14423, 15211, 15888, 16593, 16793, 17135, 17469, 17808, 18286, 18641, 18833, 19022, 19376, 20072, 20717, 21405, 22163, 22337, 22680, 23279, 23853, 24222, 24400, 24770, 25530, 26313, 26979, 27550, 27744, 28021, 28316, 28628, 28960, 29124, 29416, 29752, 29930, 30108, 30438, 30612, 30800, 31351, 32138, 32906, 33306, 33470, 33793, 34395, 34873, 35316, 35509, 35892, 36670, 37427, 38110, 38768, 39033, 39336, 39826, 40111, 40558, 40902, 41253, 41443, 42212, 42982, 43660, 44287, 44484, 44649, 44926, 45228, 45559, 46048, 46233, 46417, 46598, 47001, 47761, 48515, 49251, 49766, 49934, 50222, 50395, 50704, 51097, 51309, 51626, 51990, 52344, 52672, 52847, 53028, 53448, 54091, 54770, 55383, 55596, 55857, 56145, 56500, 56838, 57175, 57350, 57713, 58039, 58850, 59598, 60304, 60838, 61028, 61197, 61524, 61945, 62329, 62753, 62931, 63103, 63262, 63610, 64280, 65091, 65795, 66567, 68498, 68891, 69289, 69814, 70312, 70975, 72142, 72863, 73540, 74205, 74552, 74908, 75386, 75892, 77671, 78025, 78389, 78742, 79078, 79399, 79753, 80054, 80403, 80930, 81424, 82089, 83200, 83543, 83898, 84265, 84636, 85322, 85652, 86004, 86489, 86990, 88808, 90750, 91099, 91483, 92005, 92506, 93220, 94268, 94622, 94973, 95326, 95746, 96084, 96448, 96759, 97123, 97604, 98113, 99831, 100031, 100224, 100389, 100574, 100751, 101112, 101584, 101967, 102150, 102526, 103323, 104080, 104765, 105252, 105517, 105680, 105845, 106030, 106247, 106718, 106881, 107171, 107511, 107692, 107842, 108200, 108376, 108573, 109312, 109954, 110663, 111023, 111365, 111728, 112045, 112372, 112703, 113070, 113378, 113737, 114257, 114739, 115416, 116544, 118535, 118927, 119280, 119777, 120292, 122034, 124061, 124410, 124760, 125257, 125779, 126478, 127602, 129639, 130011, 130372, 130881, 131387];
 
 
-            this.BPM = 60000 / 120;
+            this.BPM = 60000 / bpm;
 
             this.UpArrowOutline = new eg.Graphics.Sprite2d(ArrowDirection.Up, 60, this.Content.GetImage("UpArrowOutline"));
             this.UpArrowOutline.Opacity = 0;
@@ -148,24 +151,28 @@ module Monster {
 
             this.ScoreBackground = new eg.Graphics.Rectangle(400, 575, 800, 50, eg.Graphics.Color.Black);
             this.ScoreBackground.Opacity = 0;
+            this.ScoreBackground.ZIndex = 998;
 
             this.ScoreLabel = new eg.Graphics.Text2d(30, 575, "Score:", eg.Graphics.Color.WhiteSmoke);
             this.ScoreLabel.Align = "left";
             this.ScoreLabel.FontSettings.FontFamily = eg.Graphics.Assets.FontFamily.Helvetica;
             this.ScoreLabel.FontSettings.FontSize = "30px";
             this.ScoreLabel.Opacity = 0;
+            this.ScoreLabel.ZIndex = 999;
 
             this.ScoreMultiplierLabel = new eg.Graphics.Text2d(750, 575, "x", eg.Graphics.Color.WhiteSmoke);
             this.ScoreMultiplierLabel.Align = "left";
             this.ScoreMultiplierLabel.FontSettings.FontFamily = eg.Graphics.Assets.FontFamily.Helvetica;
             this.ScoreMultiplierLabel.FontSettings.FontSize = "30px";
-            this.ScoreMultiplierLabel.Opacity = 0;        
+            this.ScoreMultiplierLabel.Opacity = 0;
+            this.ScoreMultiplierLabel.ZIndex = 999;        
 
             this.ScoreText = new eg.Graphics.Text2d(130, 575, "0", eg.Graphics.Color.WhiteSmoke);
             this.ScoreText.Align = "left";
             this.ScoreText.FontSettings.FontFamily = eg.Graphics.Assets.FontFamily.Helvetica;
             this.ScoreText.FontSettings.FontSize = "30px";
             this.ScoreText.Opacity = 0;
+            this.ScoreText.ZIndex = 999;
 
             this.ScoreMultiplierText = new eg.Graphics.Text2d(775, 575, "1", eg.Graphics.Color.WhiteSmoke);
             this.ScoreText.Align = "left";
@@ -173,6 +180,7 @@ module Monster {
             this.ScoreMultiplierText.FontSettings.FontWeight = "bold";
             this.ScoreMultiplierText.FontSettings.FontSize = "30px";
             this.ScoreMultiplierText.Opacity = 0;
+            this.ScoreMultiplierText.ZIndex = 999;
 
             this.Screen.Add(this.UpArrowOutline);
             this.Screen.Add(this.DownArrowOutline);
@@ -211,6 +219,11 @@ module Monster {
             };
 
             this.KeyboardHandler.OnKeyDown.Bind(this.KeyDown);
+            this.IsFinished = false;
+
+            this.Unload = () => {
+                this.Dispose();
+            };
         }
 
         public Update(gameTime: eg.GameTime): void {
@@ -242,11 +255,14 @@ module Monster {
                 case 1:
                     if (self.Notes.length > 0) {
                         var note = self.Notes[0];
-                        if ((gameTime.Now.valueOf() - self.MusicStart) >= note)
-                        {
+                        if ((gameTime.Now.valueOf() - self.MusicStart) >= note) {
                             self.CreateArrow();
                             self.Notes.splice(0, 1);
                         }
+                    }
+                    else {
+                        self.State++;
+                        setTimeout(() => { self.State++ }, 5000);
                     }
                     self.Arrows.forEach((arrow) => { arrow.Update(gameTime); });
                     self.Arrows = _.reject(self.Arrows, (arrow) => {
@@ -260,12 +276,30 @@ module Monster {
                         return arrow.IsFinished;
                     });
                     break;
+                case 2:
+                    break;
+                case 3:
+                    self.IsFinished = true;
+                    break;
             };
         }
 
-        public Dispose(): void {
-            this.Music.Stop();
-            this.Music.Dispose();
+        private Dispose(): void {
+            if (this.Music) {
+                this.Music.Stop();
+                this.Music.Dispose();
+            }
+
+            this.Screen.Remove(this.UpArrowOutline);
+            this.Screen.Remove(this.DownArrowOutline);
+            this.Screen.Remove(this.LeftArrowOutline);
+            this.Screen.Remove(this.RightArrowOutline);
+            this.Screen.Remove(this.ScoreBackground);
+            this.Screen.Remove(this.ScoreLabel);
+            this.Screen.Remove(this.ScoreMultiplierLabel);
+            this.Screen.Remove(this.ScoreText);
+            this.Screen.Remove(this.ScoreMultiplierText);
+
             this.KeyboardHandler.OnKeyDown.Unbind(this.KeyDown);
         }
 

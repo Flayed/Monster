@@ -11,6 +11,9 @@ var Monster;
             self.TalkBubbleManager = talkBubbleManager;
             self.Background = new eg.Graphics.Sprite2d(400, 300, self.Content.GetImage("FreshmanBackground"));
             self.Background.Opacity = 0;
+            self.Blackout = new eg.Graphics.Rectangle(400, 300, 800, 600, eg.Graphics.Color.Black);
+            self.Blackout.Opacity = 0;
+            self.Blackout.ZIndex = 99999;
             self.Rope = new eg.Graphics.Sprite2d(400, -400, self.Content.GetImage("TheRope"));
             self.Cheerleader = self.LoadCharacter("Cheerleader", -75, 430, 0.8);
             self.Dawn = self.LoadCharacter("Dawn", -75, 440, 0.8);
@@ -36,6 +39,7 @@ var Monster;
             self.Screen.Add(self.TheBully);
             self.Screen.Add(self.Chen);
             self.Screen.Add(self.Dexter);
+            self.Screen.Add(self.Blackout);
             for (var x = 0; x < 15; x = x + 1) {
                 self.Screen.Add(new eg.Graphics.Rectangle(0, 0, 1, 1));
             }
@@ -53,7 +57,6 @@ var Monster;
                     if (self.Background.Opacity > 1) {
                         self.Background.Opacity = 1;
                         self.State++;
-                        self.TweenManager.Add(self.Rope, new eg.Vector2d(400, 225), new eg.TimeSpan(1500), new eg.TimeSpan(500));
                         self.TweenManager.Add(self.Cheerleader, new eg.Vector2d(120, 430), new eg.TimeSpan(800), new eg.TimeSpan(200));
                         self.TweenManager.Add(self.Dawn, new eg.Vector2d(170, 440), new eg.TimeSpan(1000), new eg.TimeSpan(0));
                         self.TweenManager.Add(self.Dexter, new eg.Vector2d(685, 460), new eg.TimeSpan(800), new eg.TimeSpan(500));
@@ -69,12 +72,76 @@ var Monster;
                 case 1:
                     if (!self.TweenManager.HasTweens()) {
                         self.State++;
-                        self.TalkBubbleManager.Add(self.GymCoach.Position, "THIS IS A TALK BUBBLE, LOL", 5000);
-                        self.DDR = new Monster.ItsBasicallyDanceDanceRevolution(self.Screen, self.Content, self.TweenManager, self.KeyboardHandler, self.Content.GetAudio("Theme").BuildClip());
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "In today's gym class, we're gonna be doin' everybody's favorite...", self.Content.GetAudio("EverybodysFavorite").BuildClip(new eg.Sound.AudioSettings(false, 100)), 4250);
                     }
                     break;
                 case 2:
+                    if (!self.TalkBubbleManager.HasActiveTalkBubbles()) {
+                        self.State++;
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "The rope!", self.Content.GetAudio("CoachTheRope").BuildClip(new eg.Sound.AudioSettings(false, 100)), 1100);
+                    }
+                    break;
+                case 3:
+                    if (!self.TalkBubbleManager.HasActiveTalkBubbles()) {
+                        self.State++;
+                        self.TweenManager.Add(self.Rope, new eg.Vector2d(400, 225), new eg.TimeSpan(1500), new eg.TimeSpan(500));
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "Hey, you there!  New kid!  Why don't you go first?", self.Content.GetAudio("YouGoFirst").BuildClip(new eg.Sound.AudioSettings(false, 100)), 4000);
+                    }
+                    break;
+                case 4:
+                    if (!self.TalkBubbleManager.HasActiveTalkBubbles()) {
+                        self.State++;
+                        self.TweenManager.Add(self.TheGuy, new eg.Vector2d(340, 435), new eg.TimeSpan(1500), new eg.TimeSpan(500));
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "Now listen close why I carefully explain how to climb da rope.", self.Content.GetAudio("ListenCarefully").BuildClip(new eg.Sound.AudioSettings(false, 100)), 4100);
+                    }
+                    break;
+                case 5:
+                    if (!self.TalkBubbleManager.HasActiveTalkBubbles()) {
+                        self.State++;
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "First you get your fingers on the W, A, S, D or the arrow keys.", self.Content.GetAudio("FirstExplanation").BuildClip(new eg.Sound.AudioSettings(false, 100)), 6000);
+                    }
+                    break;
+                case 6:
+                    if (!self.TalkBubbleManager.HasActiveTalkBubbles()) {
+                        self.State++;
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "Next, these arrows will fly from the bottom of the screen.", self.Content.GetAudio("SecondExplanation").BuildClip(new eg.Sound.AudioSettings(false, 100)), 3550);
+                    }
+                    break;
+                case 7:
+                    if (!self.TalkBubbleManager.HasActiveTalkBubbles()) {
+                        self.State++;
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "It's important that you hit the corresponding key when it gets to the top", self.Content.GetAudio("ThirdExplanation").BuildClip(new eg.Sound.AudioSettings(false, 100)), 5000);
+                    }
+                    break;
+                case 8:
+                    if (!self.TalkBubbleManager.HasActiveTalkBubbles()) {
+                        self.State++;
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "Otherwise you're doing it wrong.", self.Content.GetAudio("FourthExplanation").BuildClip(new eg.Sound.AudioSettings(false, 100)), 2000);
+                    }
+                    break;
+                case 9:
+                    if (!self.TalkBubbleManager.HasActiveTalkBubbles()) {
+                        self.State++;
+                        self.TalkBubbleManager.Add(self.GymCoach.Position, "Have fun, new kid.", self.Content.GetAudio("HaveFun").BuildClip(new eg.Sound.AudioSettings(false, 100)), 1510);
+                        self.TweenManager.Add(self.TheGuy, new eg.Vector2d(415, 130), new eg.TimeSpan(133000), new eg.TimeSpan(500));
+                    }
+                    break;
+                case 10:
+                    if (!self.DDR) {
+                        self.DDR = new Monster.ItsBasicallyDanceDanceRevolution(self.Screen, self.Content, self.TweenManager, self.KeyboardHandler, self.Content.GetAudio("ClimbTheRope").BuildClip(), 173);
+                    }
                     self.DDR.Update(gameTime);
+                    if (self.DDR.IsFinished) {
+                        self.State++;
+                    }
+                    break;
+                case 11:
+                    if (Monster.Fader.FadeInShape(gameTime, self.Blackout, .5) == 0) {
+                        self.State++;
+                    }
+                    break;
+                case 12:
+                    self.IsFinished = true;
                     break;
             }
             ;
@@ -88,6 +155,21 @@ var Monster;
         };
         ;
         GymClass.prototype.Dispose = function () {
+            var self = this;
+            self.Screen.Remove(self.Background);
+            self.Screen.Remove(self.Rope);
+            self.Screen.Remove(self.Elmo);
+            self.Screen.Remove(self.TheGuy);
+            self.Screen.Remove(self.Jerry);
+            self.Screen.Remove(self.TheGirl);
+            self.Screen.Remove(self.Cheerleader);
+            self.Screen.Remove(self.GymCoach);
+            self.Screen.Remove(self.Dawn);
+            self.Screen.Remove(self.TheBully);
+            self.Screen.Remove(self.Chen);
+            self.Screen.Remove(self.Dexter);
+            self.Screen.Remove(self.Blackout);
+            self.DDR.Unload();
             var self = this;
         };
         return GymClass;

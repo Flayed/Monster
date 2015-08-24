@@ -2,21 +2,26 @@
 var Monster;
 (function (Monster) {
     var TalkBubble = (function () {
-        function TalkBubble(screen, source, message, duration) {
+        function TalkBubble(screen, source, message, audio, duration) {
             this.Screen = screen;
             this.Duration = duration;
-            this.Bubble = new eg.Graphics.Rectangle(source.X, source.Y - 100, message.length * 12, 35, eg.Graphics.Color.WhiteSmoke);
-            this.Bubble.Border(2, eg.Graphics.Color.Black);
-            this.Bubble.Opacity = 0;
+            this.Audio = audio;
             this.Text = new eg.Graphics.Text2d(source.X, source.Y - 100, message);
             this.Text.FontSettings.FontFamily = eg.Graphics.Assets.FontFamily.Helvetica;
             this.Text.FontSettings.FontSize = "18px";
             this.Text.Opacity = 0;
+            this.Text.ZIndex = 999;
+            this.Bubble = new eg.Graphics.Rectangle(source.X, source.Y - 100, message.length * 10, 35, eg.Graphics.Color.WhiteSmoke);
+            this.Bubble.Border(2, eg.Graphics.Color.Black);
+            this.Bubble.Opacity = 0;
+            this.Bubble.ZIndex = 998;
             this.Screen.Add(this.Bubble);
             this.Screen.Add(this.Text);
             this.GoTime = Date.now().valueOf();
             this.IsFinished = false;
             this.State = 0;
+            if (this.Audio)
+                this.Audio.Play();
         }
         TalkBubble.prototype.Update = function (gameTime) {
             var self = this;
@@ -42,6 +47,10 @@ var Monster;
             }
         };
         TalkBubble.prototype.Dispose = function () {
+            if (this.Audio) {
+                this.Audio.Stop();
+                this.Audio.Dispose();
+            }
             this.Screen.Remove(this.Text);
             this.Screen.Remove(this.Bubble);
         };
@@ -53,8 +62,8 @@ var Monster;
             this.Screen = screen;
             this.ActiveTalkBubbles = new Array();
         }
-        TalkBubbleManager.prototype.Add = function (source, message, duration) {
-            this.ActiveTalkBubbles.push(new TalkBubble(this.Screen, source, message, duration));
+        TalkBubbleManager.prototype.Add = function (source, message, sound, duration) {
+            this.ActiveTalkBubbles.push(new TalkBubble(this.Screen, source, message, sound, duration));
         };
         TalkBubbleManager.prototype.Update = function (gameTime) {
             for (var talkBubble in this.ActiveTalkBubbles) {

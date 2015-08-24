@@ -28,7 +28,7 @@ module Monster {
             self.TheGuy.Scale(1);
             self.TheGuy.Opacity = 0;
 
-            self.TitleText = new eg.Graphics.Text2d(400, 200, "You Are The Monster", eg.Graphics.Color.WhiteSmoke);
+            self.TitleText = new eg.Graphics.Text2d(400, 200, "It's Only You", eg.Graphics.Color.WhiteSmoke);
             self.TitleText.FontSettings.FontSize = "75px";
             self.TitleText.FontSettings.FontFamily = eg.Graphics.Assets.FontFamily.Helvetica;
             self.TitleText.Shadow(0,0, eg.Graphics.Color.WhiteSmoke, 1);

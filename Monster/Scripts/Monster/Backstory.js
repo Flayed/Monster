@@ -94,6 +94,9 @@ var Monster;
                         self.Music.Stop();
                     }
                     break;
+                case 10:
+                    self.Background.Visible = false;
+                    break;
             }
             ;
         };

@@ -15,7 +15,7 @@ var Monster;
             _super.call(this, _canvas);
             this._canvas = _canvas;
             var self = this;
-            self.GameState = 2;
+            self.GameState = -1;
             self.TweenManager = new Monster.TweenManager();
             self.TalkBubbleManager = new Monster.TalkBubbleManager(self.Scene);
         }
@@ -39,12 +39,14 @@ var Monster;
                         self.TitleScreen.Unload();
                         self.Input.Mouse.OnClick.Unbind(self.TitleScreen.MouseClick);
                         this.Input.Mouse.OnMove.Unbind(self.TitleScreen.MouseMove);
+                    }
+                    break;
+                case 1:
+                    if (!self.Backstory) {
                         self.Backstory = new Monster.Backstory(self.Scene);
                         self.Input.Mouse.OnClick.Bind(self.Backstory.MouseClick);
                         self.Backstory.Music = self.Content.GetAudio("Backstory").BuildClip();
                     }
-                    break;
-                case 1:
                     self.Backstory.Update(gameTime);
                     if (self.Backstory.IsFinished) {
                         self.GameState++;
@@ -58,6 +60,27 @@ var Monster;
                         self.Input.Mouse.OnClick.Bind(self.GymClass.MouseClick);
                     }
                     self.GymClass.Update(gameTime);
+                    if (self.GymClass.IsFinished) {
+                        self.GameState++;
+                        self.GymClass.Unload();
+                        self.Input.Mouse.OnClick.Unbind(self.GymClass.MouseClick);
+                    }
+                    break;
+                case 3:
+                    if (!self.Lunchroom) {
+                        self.Lunchroom = new Monster.Lunchroom(self.Scene, self.Content, self.TalkBubbleManager, true);
+                    }
+                    self.Lunchroom.Update(gameTime);
+                    if (self.Lunchroom.IsFinished) {
+                        self.GameState++;
+                        self.Lunchroom.Unload();
+                    }
+                    break;
+                case 4:
+                    if (!self.Credits) {
+                        self.Credits = new Monster.Credits(self.Scene, self.Content, self.TweenManager);
+                    }
+                    self.Credits.Update(gameTime);
                     break;
             }
             ;
@@ -67,6 +90,18 @@ var Monster;
         Game.prototype.LoadContent = function () {
             this.Content.LoadAudio("Theme", ["./Content/Audio/MonsterTheme.ogg", "./Content/Audio/MonsterTheme.mp3"]);
             this.Content.LoadAudio("Backstory", ["./Content/Audio/MonsterBackstory.ogg", "./Content/Audio/MonsterBackstory.mp3"]);
+            this.Content.LoadAudio("ClimbTheRope", ["./Content/Audio/ClimbTheRope.ogg", "./Content/Audio/ClimbTheRope.mp3"]);
+            this.Content.LoadAudio("LunchroomVictory", ["./Content/Audio/LunchroomVictory.ogg", "./Content/Audio/LunchroomVictory.mp3"]);
+            this.Content.LoadAudio("ItsOnlyYou", ["./Content/Audio/ItsOnlyYou.ogg", "./Content/Audio/ItsOnlyYou.mp3"]);
+            this.Content.LoadAudio("EverybodysFavorite", "./Content/Audio/EverybodysFavorite.mp3");
+            this.Content.LoadAudio("CoachTheRope", "./Content/Audio/TheRope.mp3");
+            this.Content.LoadAudio("YouGoFirst", "./Content/Audio/YouGoFirst.mp3");
+            this.Content.LoadAudio("ListenCarefully", "./Content/Audio/ListenCarefully.mp3");
+            this.Content.LoadAudio("FirstExplanation", "./Content/Audio/FirstExplanation.mp3");
+            this.Content.LoadAudio("SecondExplanation", "./Content/Audio/SecondExplanation.mp3");
+            this.Content.LoadAudio("ThirdExplanation", "./Content/Audio/ThirdExplanation.mp3");
+            this.Content.LoadAudio("FourthExplanation", "./Content/Audio/FourthExplanation.mp3");
+            this.Content.LoadAudio("HaveFun", "./Content/Audio/HaveFun.mp3");
             this.Content.LoadImage("TitleBackground", "./Content/Img/TitleBackground.png", 800, 600);
             this.Content.LoadImage("School", "./Content/Img/School.png", 800, 600);
             this.Content.LoadImage("FreshmanBackground", "./Content/Img/FreshmanBackground.png", 800, 600);
@@ -90,6 +125,9 @@ var Monster;
             this.Content.LoadImage("LeftArrowOutline", "./Content/Img/LeftArrowOutline.png", 102, 102);
             this.Content.LoadImage("RightArrow", "./Content/Img/RightArrow.png", 102, 102);
             this.Content.LoadImage("RightArrowOutline", "./Content/Img/RightArrowOutline.png", 102, 102);
+            this.Content.LoadImage("Lunchroom", "./Content/Img/LunchroomBackground.png", 800, 600);
+            this.Content.LoadImage("LunchroomTable", "./Content/Img/LunchroomTable.png", 400, 80);
+            this.Content.LoadImage("LunchroomTray", "./Content/Img/LunchTray.png", 58, 17);
         };
         return Game;
     })(eg.Game);

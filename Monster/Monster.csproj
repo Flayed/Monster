@@ -112,8 +112,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Audio\ClimbTheRope.mp3" />
+    <Content Include="Content\Audio\EverybodysFavorite.mp3" />
+    <Content Include="Content\Audio\FirstExplanation.mp3" />
+    <Content Include="Content\Audio\FourthExplanation.mp3" />
+    <Content Include="Content\Audio\HaveFun.mp3" />
+    <Content Include="Content\Audio\ItsOnlyYou.mp3" />
+    <Content Include="Content\Audio\ListenCarefully.mp3" />
+    <Content Include="Content\Audio\LunchroomVictory.mp3" />
     <Content Include="Content\Audio\MonsterBackstory.mp3" />
     <Content Include="Content\Audio\MonsterTheme.mp3" />
+    <Content Include="Content\Audio\SecondExplanation.mp3" />
+    <Content Include="Content\Audio\TheRope.mp3" />
+    <Content Include="Content\Audio\ThirdExplanation.mp3" />
+    <Content Include="Content\Audio\YouGoFirst.mp3" />
     <Content Include="Content\Img\Cheerleader.png" />
     <Content Include="Content\Img\Chen.png" />
     <Content Include="Content\Img\Dawn.png" />
@@ -126,6 +138,9 @@
     <Content Include="Content\Img\Jerry.png" />
     <Content Include="Content\Img\LeftArrow.png" />
     <Content Include="Content\Img\LeftArrowOutline.png" />
+    <Content Include="Content\Img\LunchroomBackground.png" />
+    <Content Include="Content\Img\LunchroomTable.png" />
+    <Content Include="Content\Img\LunchTray.png" />
     <Content Include="Content\Img\null.png" />
     <Content Include="Content\Img\RightArrow.png" />
     <Content Include="Content\Img\RightArrowOutline.png" />
@@ -152,6 +167,9 @@
     <Content Include="Content\Audio\MonsterTheme.ogg" />
     <Content Include="Content\Audio\MonsterBackstory.ogg" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Content\Audio\ClimbTheRope.ogg" />
+    <Content Include="Content\Audio\LunchroomVictory.ogg" />
+    <Content Include="Content\Audio\ItsOnlyYou.ogg" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -192,10 +210,12 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Monster\Backstory.ts" />
     <TypeScriptCompile Include="Scripts\endgate-0.2.1.d.ts" />
+    <TypeScriptCompile Include="Scripts\Monster\Credits.ts" />
     <TypeScriptCompile Include="Scripts\Monster\Fader.ts" />
     <TypeScriptCompile Include="Scripts\Monster\Game.ts" />
     <TypeScriptCompile Include="Scripts\Monster\GymClass.ts" />
     <TypeScriptCompile Include="Scripts\Monster\ItsBasicallyDanceDanceRevolution.ts" />
+    <TypeScriptCompile Include="Scripts\Monster\Lunchroom.ts" />
     <TypeScriptCompile Include="Scripts\Monster\Main.ts" />
     <TypeScriptCompile Include="Scripts\Monster\TalkBubbleManager.ts" />
     <TypeScriptCompile Include="Scripts\Monster\Title.ts" />

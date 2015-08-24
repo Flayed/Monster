@@ -115,7 +115,10 @@ module Monster {
                         self.IsFinished = true;
                         self.Music.Stop();
                     }
-                    break;                    
+                    break;    
+                case 10:
+                    self.Background.Visible = false;
+                    break;                
             };
         }
 
